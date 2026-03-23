@@ -283,7 +283,7 @@ body.page-company::before {
   gap: 1.75rem;
 }
 .nav-links a {
-  font-size: 1.29rem;
+  font-size: 1.05rem;
   font-weight: 600;
   letter-spacing: 0.09em;
   color: var(--text-2);
