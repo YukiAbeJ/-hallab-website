@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>メンバーログイン — HAL Lab.</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ---- Login page specific styles ---- */
+    .login-outer {
+      min-height: calc(100vh - var(--nav-h));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem var(--px);
+      background: var(--bg-2);
+      margin-top: var(--nav-h);
+    }
+    .login-card {
+      background: var(--bg-glass);
+      border: 1px solid var(--line-sub);
+      border-radius: var(--radius-xl);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.10);
+      padding: 3rem 2.5rem;
+      width: 100%;
+      max-width: 440px;
+    }
+    .login-logo-wrap {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .login-logo-wrap img {
+      height: 72px;
+      width: auto;
+      margin: 0 auto;
+    }
+    .login-divider {
+      width: 40px;
+      height: 2px;
+      background: var(--gold);
+      margin: 1rem auto 1.5rem;
+      border-radius: 2px;
+    }
+    .login-title {
+      font-family: var(--f-serif);
+      font-size: 1.45rem;
+      text-align: center;
+      color: var(--text);
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      margin: 0;
+    }
+    .login-sub {
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--text-3);
+      margin: 0.5rem 0 2rem;
+      letter-spacing: 0.04em;
+    }
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.78rem;
+      letter-spacing: 0.10em;
+      color: var(--text-2);
+      margin-bottom: 0.4rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .form-input {
+      width: 100%;
+      padding: 0.78rem 1rem;
+      border: 1px solid var(--line-sub);
+      border-radius: var(--radius-md);
+      font-size: 0.95rem;
+      font-family: var(--f-sans);
+      color: var(--text);
+      background: var(--bg-base);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+      box-sizing: border-box;
+    }
+    .form-input:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px var(--gold-10);
+    }
+    .btn-submit {
+      width: 100%;
+      padding: 0.88rem;
+      background: var(--gold);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-md);
+      font-size: 0.95rem;
+      font-family: var(--f-sans);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      margin-top: 0.5rem;
+    }
+    .btn-submit:hover { background: var(--gold-dk); }
+    .btn-submit:active { transform: scale(0.98); }
+    .btn-submit:disabled { background: #ccc; cursor: not-allowed; }
+    .form-error {
+      font-size: 0.82rem;
+      color: #c0392b;
+      background: rgba(192,57,43,0.06);
+      border-left: 3px solid #c0392b;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 0.6rem 0.8rem;
+      margin-bottom: 0.8rem;
+    }
+    .form-success {
+      font-size: 0.85rem;
+      color: #1a7f37;
+      background: rgba(26,127,55,0.07);
+      border-left: 3px solid #1a7f37;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 0.6rem 0.8rem;
+      margin-bottom: 0.8rem;
+    }
+    .form-switch {
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--text-3);
+      margin-top: 1.5rem;
+    }
+    .form-switch a {
+      color: var(--gold);
+      text-decoration: underline;
+      cursor: pointer;
+    }
+    .form-note {
+      font-size: 0.75rem;
+      color: var(--text-3);
+      text-align: center;
+      margin-top: 1.5rem;
+      line-height: 1.7;
+    }
+    @media (max-width: 480px) {
+      .login-card { padding: 2rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+<a class="skip-link" href="#main">本文へスキップ</a>
+<nav class="nav" id="nav" role="navigation">
+  <a href="index.html" class="logo">
+    <img src="img/logo-hallab.jpg" alt="HAL Lab." class="logo-img">
+  </a>
+  <div class="nav-links">
+    <a href="index.html#greeting">ご挨拶</a>
+    <a href="about.html">私たちについて</a>
+    <a href="services.html">私たちの取組</a>
+    <a href="achievements.html">実績</a>
+    <a href="news.html">お知らせ</a>
+    <a href="company.html">法人情報</a>
+    <a href="login.html" class="nav-login active">Login</a>
+  </div>
+  <button class="hamburger" aria-label="メニューを開く" aria-expanded="false" aria-controls="nav-overlay">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav-overlay" id="nav-overlay" role="dialog" aria-hidden="true">
+  <a href="index.html#greeting">ご挨拶</a>
+  <a href="about.html">私たちについて</a>
+  <a href="services.html">私たちの取組</a>
+  <a href="achievements.html">実績</a>
+  <a href="news.html">お知らせ</a>
+  <a href="company.html">法人情報</a>
+  <div class="nav-overlay-line" aria-hidden="true"></div>
+  <a href="login.html" class="nav-login">Login</a>
+</div>
+
+<main id="main">
+  <div class="login-outer">
+    <div class="login-card">
+      <div class="login-logo-wrap">
+        <img src="img/logo-hallab-crop.png" alt="HAL Lab.">
+      </div>
+      <div class="login-divider"></div>
+
+      <!-- ===== ログインフォーム ===== -->
+      <div id="form-login">
+        <h1 class="login-title">メンバーログイン</h1>
+        <p class="login-sub">法人メンバー専用ページです</p>
+
+        <div class="form-group">
+          <label for="login-name">お名前</label>
+          <input type="text" id="login-name" class="form-input" placeholder="例：山田 太郎" autocomplete="name">
+        </div>
+        <div class="form-group">
+          <label for="login-pass">パスワード</label>
+          <input type="password" id="login-pass" class="form-input" placeholder="パスワードを入力" autocomplete="current-password">
+        </div>
+        <div id="login-error" class="form-error" style="display:none;"></div>
+        <button class="btn-submit" id="btn-login" onclick="handleLogin()">ログイン</button>
+
+        <p class="form-switch">
+          初回ログインの方は<a onclick="showMode('register')">こちら（初回登録）</a>
+        </p>
+        <p class="form-note">
+          パスワードをお忘れの方は<a onclick="showMode('reset')" style="color:var(--gold);text-decoration:underline;cursor:pointer;">こちら（再設定）</a>
+        </p>
+      </div>
+
+      <!-- ===== 初回登録フォーム ===== -->
+      <div id="form-register" style="display:none;">
+        <h1 class="login-title">初回登録</h1>
+        <p class="login-sub">招待コードを入力してアカウントを設定してください</p>
+
+        <div class="form-group">
+          <label for="reg-invite">招待コード</label>
+          <input type="text" id="reg-invite" class="form-input" placeholder="管理者から配布されたコード" autocomplete="off">
+        </div>
+        <div class="form-group">
+          <label for="reg-name">お名前（フルネーム）</label>
+          <input type="text" id="reg-name" class="form-input" placeholder="例：山田 太郎" autocomplete="name">
+        </div>
+        <div class="form-group">
+          <label for="reg-pass">パスワード設定（8文字以上）</label>
+          <input type="password" id="reg-pass" class="form-input" placeholder="8文字以上で設定" autocomplete="new-password">
+        </div>
+        <div class="form-group">
+          <label for="reg-pass2">パスワード確認</label>
+          <input type="password" id="reg-pass2" class="form-input" placeholder="もう一度入力" autocomplete="new-password">
+        </div>
+        <div id="reg-error" class="form-error" style="display:none;"></div>
+        <button class="btn-submit" id="btn-register" onclick="handleRegister()">登録してログイン</button>
+
+        <p class="form-switch"><a onclick="showMode('login')">← ログインページに戻る</a></p>
+      </div>
+
+      <!-- ===== パスワード再設定フォーム ===== -->
+      <div id="form-reset" style="display:none;">
+        <h1 class="login-title">パスワード再設定</h1>
+        <p class="login-sub">招待コードを入力して新しいパスワードを設定してください</p>
+
+        <div class="form-group">
+          <label for="rst-invite">招待コード</label>
+          <input type="text" id="rst-invite" class="form-input" placeholder="管理者から配布されたコード" autocomplete="off">
+        </div>
+        <div class="form-group">
+          <label for="rst-name">お名前（登録時と同じ）</label>
+          <input type="text" id="rst-name" class="form-input" placeholder="例：山田 太郎" autocomplete="name">
+        </div>
+        <div class="form-group">
+          <label for="rst-pass">新しいパスワード（8文字以上）</label>
+          <input type="password" id="rst-pass" class="form-input" placeholder="8文字以上" autocomplete="new-password">
+        </div>
+        <div class="form-group">
+          <label for="rst-pass2">新しいパスワード確認</label>
+          <input type="password" id="rst-pass2" class="form-input" placeholder="もう一度入力" autocomplete="new-password">
+        </div>
+        <div id="rst-error" class="form-error" style="display:none;"></div>
+        <div id="rst-success" class="form-success" style="display:none;"></div>
+        <button class="btn-submit" id="btn-reset" onclick="handleReset()">パスワードを再設定</button>
+
+        <p class="form-switch"><a onclick="showMode('login')">← ログインページに戻る</a></p>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<footer class="footer" role="contentinfo">
+  <div class="footer-inner">
+    <div>
+      <a href="index.html" class="logo logo-footer">
+        <img src="img/logo-hallab.jpg" alt="HAL Lab." class="logo-img">
+      </a>
+      <p class="footer-tagline">今日も「生きる」を支えていきます</p>
+    </div>
+    <div>
+      <div class="footer-nav-title">NAVIGATION</div>
+      <nav class="footer-links">
+        <a href="index.html#greeting">ご挨拶</a>
+        <a href="about.html">私たちについて</a>
+        <a href="services.html">私たちの取組</a>
+        <a href="achievements.html">実績</a>
+        <a href="news.html">お知らせ</a>
+        <a href="company.html">法人情報</a>
+      </nav>
+    </div>
+    <div>
+      <div class="footer-nav-title">MEMBERS</div>
+      <nav class="footer-links">
+        <a href="members/abe-yuki.html">阿部 祐樹</a>
+        <a href="members/itagaki-atsunori.html">板垣 篤典</a>
+        <a href="members/kondo-ikue.html">近藤 郁江</a>
+        <a href="members/kimura-yosuke.html">木村 鷹介</a>
+        <a href="members/imagawa-norie.html">今川 記恵</a>
+        <a href="members/satoh-toshimi.html">佐藤 聡見</a>
+        <a href="members/kakehi-tomohiro.html">筧 智裕</a>
+      </nav>
+    </div>
+    <div class="footer-address">
+      <strong>ADDRESS</strong>
+      〒107-0061<br>東京都港区北青山<br>一丁目3番1号<br>アールキューブ青山3階<br><br>設立：2025年4月1日
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">&copy; 2025 一般社団法人 HAL Lab. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/auth.js"></script>
+<script>
+  /* ---- 招待コード（全員の登録完了後に変更推奨） ---- */
+  /* ※ GitHubリポジトリをPrivateに設定するとより安全です */
+  const INVITE_CODE = 'HAL@Lab2025';
+
+  /* ---- フォーム切り替え ---- */
+  function showMode(mode) {
+    ['login','register','reset'].forEach(m => {
+      document.getElementById('form-' + m).style.display = m === mode ? '' : 'none';
+    });
+  }
+
+  /* ---- エラー / 成功メッセージ ---- */
+  function showMsg(elId, msg, isError = true) {
+    const el = document.getElementById(elId);
+    el.textContent = msg;
+    el.style.display = msg ? '' : 'none';
+  }
+
+  /* ---- ログイン処理 ---- */
+  async function handleLogin() {
+    const btn  = document.getElementById('btn-login');
+    const name = document.getElementById('login-name').value.trim();
+    const pass = document.getElementById('login-pass').value;
+    showMsg('login-error', '');
+    btn.disabled = true; btn.textContent = '確認中…';
+    const result = await Auth.login(name, pass);
+    if (result.ok) {
+      window.location.href = 'members-area.html';
+    } else {
+      showMsg('login-error', result.msg);
+      btn.disabled = false; btn.textContent = 'ログイン';
+    }
+  }
+
+  /* ---- 初回登録処理 ---- */
+  async function handleRegister() {
+    const btn    = document.getElementById('btn-register');
+    const invite = document.getElementById('reg-invite').value.trim();
+    const name   = document.getElementById('reg-name').value.trim();
+    const pass   = document.getElementById('reg-pass').value;
+    const pass2  = document.getElementById('reg-pass2').value;
+    showMsg('reg-error', '');
+
+    if (invite !== INVITE_CODE) {
+      showMsg('reg-error', '招待コードが正しくありません。管理者にご確認ください。'); return;
+    }
+    if (!name) { showMsg('reg-error', 'お名前を入力してください'); return; }
+    if (pass.length < 8) { showMsg('reg-error', 'パスワードは8文字以上で設定してください'); return; }
+    if (pass !== pass2) { showMsg('reg-error', 'パスワードが一致しません'); return; }
+
+    btn.disabled = true; btn.textContent = '登録中…';
+    const result = await Auth.register(name, pass);
+    if (result.ok) {
+      window.location.href = 'members-area.html';
+    } else {
+      showMsg('reg-error', result.msg);
+      btn.disabled = false; btn.textContent = '登録してログイン';
+    }
+  }
+
+  /* ---- パスワード再設定処理 ---- */
+  async function handleReset() {
+    const btn    = document.getElementById('btn-reset');
+    const invite = document.getElementById('rst-invite').value.trim();
+    const name   = document.getElementById('rst-name').value.trim();
+    const pass   = document.getElementById('rst-pass').value;
+    const pass2  = document.getElementById('rst-pass2').value;
+    showMsg('rst-error', ''); showMsg('rst-success', '', false);
+
+    if (invite !== INVITE_CODE) {
+      showMsg('rst-error', '招待コードが正しくありません。'); return;
+    }
+    if (!name) { showMsg('rst-error', 'お名前を入力してください'); return; }
+    if (pass.length < 8) { showMsg('rst-error', 'パスワードは8文字以上で設定してください'); return; }
+    if (pass !== pass2) { showMsg('rst-error', 'パスワードが一致しません'); return; }
+
+    btn.disabled = true; btn.textContent = '更新中…';
+    const result = await Auth.register(name, pass);
+    if (result.ok) {
+      window.location.href = 'members-area.html';
+    } else {
+      showMsg('rst-error', result.msg);
+      btn.disabled = false; btn.textContent = 'パスワードを再設定';
+    }
+  }
+
+  /* ---- Enterキー対応 ---- */
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'Enter') return;
+    const loginVisible = document.getElementById('form-login').style.display !== 'none';
+    const regVisible   = document.getElementById('form-register').style.display !== 'none';
+    const rstVisible   = document.getElementById('form-reset').style.display !== 'none';
+    if (loginVisible) handleLogin();
+    else if (regVisible) handleRegister();
+    else if (rstVisible) handleReset();
+  });
+
+  /* ---- 既にログイン済みならリダイレクト ---- */
+  if (Auth.getSession()) window.location.replace('members-area.html');
+</script>
+</body>
+</html>
