@@ -1,10 +1,11 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HAL Lab. — Healthy Ageing &amp; Longevity Laboratory</title>
   <meta name="description" content="一般社団法人HAL Lab.（ヘルシーエイジング・長寿研究所）。予防・医療・介護のエキスパート集団が、科学と実践で地域の健康未来を創造します。">
+  <meta name="google-site-verification" content="eRyW41c172kEZ9JSm6lAfih5IGFRNnyzsDgaouy9KsQ" />
   <meta property="og:title" content="HAL Lab. — Healthy Ageing & Longevity Laboratory">
   <meta property="og:description" content="予防・医療・介護のエキスパート集団。科学と実践で地域の健康未来を創造する。">
   <meta property="og:type" content="website">
@@ -12,6 +13,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+
 </head>
 <body class="page-index">
 
@@ -27,10 +29,10 @@
     <a href="#message"  role="menuitem">ご挨拶</a>
     <a href="about.html"       role="menuitem">私たちについて</a>
     <a href="services.html"    role="menuitem">私たちの取組</a>
-    <a href="achievements.html" role="menuitem">実績</a>
+    <a href="achievements.html" role="menuitem">活動実績</a>
     <a href="news.html"        role="menuitem">お知らせ</a>
     <a href="company.html"     role="menuitem">法人情報</a>
-    <a href="#" class="nav-login" role="menuitem">Login</a>
+    <a href="login.html" class="nav-login" role="menuitem" title="パートナー法人・会員専用">会員ログイン</a>
   </div>
 
   <button class="hamburger" aria-label="メニューを開く" aria-expanded="false" aria-controls="nav-overlay">
@@ -44,11 +46,11 @@
   <div class="nav-overlay-line" aria-hidden="true"></div>
   <a href="about.html">私たちについて</a>
   <a href="services.html">私たちの取組</a>
-  <a href="achievements.html">実績</a>
+  <a href="achievements.html">活動実績</a>
   <a href="news.html">お知らせ</a>
   <a href="company.html">法人情報</a>
   <div class="nav-overlay-line" aria-hidden="true"></div>
-  <a href="#" class="nav-login">Login</a>
+  <a href="login.html" class="nav-login" title="パートナー法人・会員専用">会員ログイン</a>
 </div>
 
 <main id="main">
@@ -58,7 +60,8 @@
     <img src="img/hero-logo-visual.png" alt="HAL Lab. — Healthy Ageing &amp; Longevity Laboratory" class="hero-banner-img">
     <div class="hero-sky-caption">
       <p class="hero-sky-tagline">今日も「生きる」を支えていきます</p>
-      <p class="hero-sky-desc">予防・医療・介護のエキスパート集団による地域の健康づくり・予防・生活支援への新たな挑戦</p>
+      <p class="hero-sky-science">「生きる」を科学する</p>
+      <p class="hero-sky-desc">自治体・医療・介護事業者と連携し、科学的根拠に基づく地域の健康づくり・<br class="desc-br">予防・生活支援を推進する、東京都立大学発の専門家集団です。</p>
     </div>
   </div>
 
@@ -77,13 +80,13 @@
         </div>
         <div class="message-body reveal d2">
           <p>
-            大学・研究機関、医療機関に所属し、臨床・教育・研究・社会実装の経験が豊富な研究者、臨床家らから構成される専門家集団です。
+            HAL Lab.は、大学・研究機関・医療機関に所属する研究者と臨床家が集結した、予防・医療・介護の専門家集団です。2025年4月、東京都立大学発のスタートアップとして設立しました。
           </p>
           <p>
-            一次予防から医療、介護まで人々の生活を支援してきたリハビリテーションの専門家集団による、人々の「健康づくり、予防、生活支援」に係る新たな取組みです。
+            一次予防から医療・介護まで、リハビリテーションの最前線で人々の生活を支えてきた私たちは、その経験と科学的知見を地域の「健康づくり・予防・生活支援」に還元するため、新たな一歩を踏み出しました。
           </p>
           <p>
-            私たちは、予防・医療・介護のエキスパート集団であり、東京都立大学発のスタートアップとして、2025年4月に一般社団法人HAL Lab.を設立しました。
+            臨床・教育・研究・社会実装——それぞれの現場で磨かれた実力を結集し、人々が「生きる」を豊かに続けられる社会の実現を目指しています。
           </p>
         </div>
       </div>
@@ -101,29 +104,30 @@
       <p class="mission-statement reveal d1" id="mission-stmt">
         科学と実践で<br>地域の健康未来を創造する
       </p>
-      <div class="pillars reveal d2">
+      <p class="mission-lead reveal d2">自治体の保健事業から、医療・介護事業者の現場支援、研究・教育機関との連携まで、予防から看取りまでの連続した支援体制を提供します。</p>
+      <div class="pillars reveal d3">
         <div class="pillar">
           <div class="pillar-num">01</div>
-          <div class="pillar-en">Health Promotion</div>
           <div class="pillar-ja">健康づくり・予防</div>
+          <div class="pillar-en">Health Promotion</div>
           <div class="pillar-desc">介護予防事業支援・保健事業支援</div>
         </div>
         <div class="pillar">
           <div class="pillar-num">02</div>
-          <div class="pillar-en">Life Support</div>
           <div class="pillar-ja">生活支援</div>
+          <div class="pillar-en">Life Support</div>
           <div class="pillar-desc">地域リハビリテーション・医学的リハビリ支援</div>
         </div>
         <div class="pillar">
           <div class="pillar-num">03</div>
-          <div class="pillar-en">Research</div>
           <div class="pillar-ja">研究</div>
+          <div class="pillar-en">Research</div>
           <div class="pillar-desc">健康増進・予防研究・デジタルヘルス開発</div>
         </div>
         <div class="pillar">
           <div class="pillar-num">04</div>
-          <div class="pillar-en">Education</div>
           <div class="pillar-ja">教育</div>
+          <div class="pillar-en">Education</div>
           <div class="pillar-desc">専門職支援・次世代人材育成</div>
         </div>
       </div>
@@ -146,12 +150,12 @@
         <span class="sec-label">Directors</span>
         <h2 class="sec-title-en" id="team-title">Our Team</h2>
         <div class="sec-rule"></div>
-        <p class="sec-lead">予防・医療・介護の各専門分野のエキスパートが集い、科学と実践を融合した取組を推進しています。</p>
+        <p class="sec-lead">大学・研究機関・医療機関で活躍する理学療法士・言語聴覚士・作業療法士の専門家チームが、研究の知見を現場の実践に直結させます。各自治体・事業者のニーズに合わせた、科学的根拠に基づく支援を提供します。</p>
       </div>
 
       <div class="mt-3">
         <!-- Directors grid -->
-        <div class="team-grid">
+        <div class="team-grid mt-2">
           <a href="members/itagaki-atsunori.html" class="team-card reveal d1">
             <div class="avatar"><img src="img/members/itagaki-atsunori.jpg" alt="板垣 篤典" class="av-photo" onerror="this.style.display='none'">IA</div>
             <div>
@@ -214,7 +218,7 @@
           </a>
         </div>
 
-        <!-- Rep Director (last) -->
+        <!-- Rep Director (featured, last) -->
         <a href="members/abe-yuki.html" class="rep-card reveal mt-2">
           <div class="rep-avatar"><img src="img/members/abe-yuki.jpg" alt="阿部 祐樹" class="av-photo" onerror="this.style.display='none'">AY</div>
           <div>
@@ -222,12 +226,14 @@
             <div class="rep-name-ja">阿部 祐樹</div>
             <div class="rep-name-en">Abe Yuki &ensp;PT, MSc</div>
             <div class="rep-affil">
-              株式会社JDSC DXストラテジー Mgr. &nbsp;/&nbsp; DX・AXコンサルタント &nbsp;/&nbsp; 理学療法士<br>
+              一般社団法人 HAL Lab. 代表理事<br>
+              理学療法士 &nbsp;/&nbsp; デジタルヘルス・DXコンサルタント<br>
               フレイル対策コンソーシアム &nbsp;/&nbsp; 日本がん治療・研究機構 外部研究員
             </div>
           </div>
           <div class="rep-arrow" aria-hidden="true">→</div>
         </a>
+
       </div>
 
       <div class="mt-3 text-center reveal">
@@ -257,6 +263,21 @@
       </div>
       <div class="mt-2 reveal">
         <a href="news.html" class="btn-text">お知らせ一覧</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="sec-divider"></div>
+
+  <!-- ===== CONTACT CTA ===== -->
+  <section class="section section--dark" id="contact-cta" aria-labelledby="cta-title">
+    <div class="container">
+      <div class="cta-block reveal">
+        <span class="sec-label" style="justify-content:center;">Contact</span>
+        <h2 class="sec-title-en" id="cta-title">連携・ご相談のお問い合わせ</h2>
+        <div class="sec-rule" style="margin:0 auto 1.5rem;"></div>
+        <p>自治体の保健事業、医療・介護事業者の現場支援、<br>共同研究・教育プログラムに関するご相談はこちらから。</p>
+        <a href="company.html" class="btn btn-gold">お問い合わせフォームへ →</a>
       </div>
     </div>
   </section>
@@ -304,6 +325,7 @@
         <img src="img/logo-hallab.jpg" alt="HAL Lab." class="logo-img">
       </a>
       <p class="footer-tagline">今日も「生きる」を支えていきます</p>
+      <p class="footer-mission">一般社団法人 HAL Lab. ― 科学と実践で、地域の健康未来を創造する。</p>
     </div>
     <div>
       <div class="footer-nav-title">NAVIGATION</div>
@@ -311,7 +333,7 @@
         <a href="#message">ご挨拶</a>
         <a href="about.html">私たちについて</a>
         <a href="services.html">私たちの取組</a>
-        <a href="achievements.html">実績</a>
+        <a href="achievements.html">活動実績</a>
         <a href="news.html">お知らせ</a>
         <a href="company.html">法人情報</a>
       </nav>
