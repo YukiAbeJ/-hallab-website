@@ -13,6 +13,80 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ===== HERO INTRO VIDEOS ===== */
+    #intro-wrap {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      background: #000;
+      overflow: hidden;
+      transition: opacity 0.9s ease;
+    }
+    #intro-wrap video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center center;
+      opacity: 0;
+      transition: opacity 0.65s ease-in-out;
+      will-change: opacity;
+    }
+    #intro-wrap video.iv-active {
+      opacity: 1;
+    }
+    #intro-wrap.iv-fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+    /* フラッシュ演出 */
+    #intro-flash {
+      position: absolute;
+      inset: 0;
+      z-index: 4;
+      background: #fff;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease-out;
+    }
+    #intro-flash.flash-in {
+      opacity: 1;
+      transition: opacity 0.18s ease-in;
+    }
+    #intro-flash.flash-out {
+      opacity: 0;
+      transition: opacity 0.55s ease-out;
+    }
+    /* ヒーロー画像・キャプションは最初非表示 */
+    .hero-banner-img.iv-hidden,
+    .hero-sky-caption.iv-hidden {
+      opacity: 0;
+      transition: opacity 1.2s ease;
+    }
+    /* SKIP ボタン */
+    #intro-skip {
+      position: absolute;
+      bottom: 1.4rem;
+      right: 1.6rem;
+      z-index: 5;
+      color: rgba(255,255,255,0.5);
+      font-size: 0.7rem;
+      font-family: 'Noto Sans JP', sans-serif;
+      letter-spacing: 0.14em;
+      cursor: pointer;
+      border: 1px solid rgba(255,255,255,0.22);
+      padding: 0.35em 1.1em;
+      border-radius: 2px;
+      background: transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    #intro-skip:hover {
+      color: rgba(255,255,255,0.9);
+      border-color: rgba(255,255,255,0.55);
+    }
+  </style>
 
 </head>
 <body class="page-index">
@@ -57,8 +131,20 @@
 
   <!-- ===== HERO BANNER ===== -->
   <div class="hero-banner-visual" aria-label="メインビジュアル">
-    <img src="img/hero-logo-visual.png" alt="HAL Lab. — Healthy Ageing &amp; Longevity Laboratory" class="hero-banner-img">
-    <div class="hero-sky-caption">
+
+    <!-- イントロ動画（再生後に自動消去） -->
+    <div id="intro-wrap" aria-hidden="true">
+      <video id="iv1" src="video/243075.mp4"           muted playsinline preload="auto"></video>
+      <video id="iv2" src="video/268528.mp4"           muted playsinline preload="auto"></video>
+      <video id="iv3" src="video/172667-849651709.mp4" muted playsinline preload="auto"></video>
+      <video id="iv4" src="video/18420-292228405.mp4"  muted playsinline preload="auto"></video>
+      <div id="intro-flash"></div>
+      <button id="intro-skip" onclick="introSkip()" aria-label="イントロをスキップ">SKIP ›</button>
+    </div>
+
+    <!-- メインビジュアル（イントロ終了後にフェードイン） -->
+    <img src="img/hero-logo-visual.png" alt="HAL Lab. — Healthy Ageing &amp; Longevity Laboratory" class="hero-banner-img iv-hidden">
+    <div class="hero-sky-caption iv-hidden">
       <p class="hero-sky-tagline">今日も「生きる」を支えていきます</p>
       <p class="hero-sky-science">「生きる」を科学する</p>
       <p class="hero-sky-desc">自治体・医療・介護事業者と連携し、科学的根拠に基づく地域の健康づくり・<br class="desc-br">予防・生活支援を推進する、東京都立大学発の専門家集団です。</p>
@@ -365,5 +451,76 @@
 </footer>
 
 <script src="js/main.js"></script>
+<script>
+/* ===== HERO INTRO VIDEO SEQUENCE ===== */
+(function () {
+  var CLIP_MS  = 3000; // 各クリップの表示時間（ms）
+  var FADE_MS  = 650;  // クロスフェード時間（ms）
+
+  var wrap     = document.getElementById('intro-wrap');
+  var flash    = document.getElementById('intro-flash');
+  var videos   = ['iv1','iv2','iv3','iv4'].map(function(id){ return document.getElementById(id); });
+  var heroImg  = document.querySelector('.hero-banner-img');
+  var caption  = document.querySelector('.hero-sky-caption');
+  var finished = false;
+
+  /* 動画再生後：フラッシュ → ヒーロー画像フェードイン */
+  function revealHero() {
+    if (finished) return;
+    finished = true;
+    videos.forEach(function(v){ v.pause(); v.classList.remove('iv-active'); });
+
+    // ① 白フラッシュON（0.18秒で眩しく）
+    flash.classList.add('flash-in');
+
+    setTimeout(function(){
+      // ② ヒーロー画像を下に準備（フラッシュの裏で）
+      heroImg.classList.remove('iv-hidden');
+      caption.classList.remove('iv-hidden');
+
+      // ③ フラッシュをゆっくりOFF → 画像が浮かび上がる
+      flash.classList.remove('flash-in');
+      flash.classList.add('flash-out');
+
+      // ④ イントロラップを消去
+      wrap.classList.add('iv-fade-out');
+      setTimeout(function(){
+        if (wrap.parentNode) wrap.parentNode.removeChild(wrap);
+      }, 700);
+
+    }, 220); // フラッシュが頂点に達したタイミング
+  }
+
+  /* クリップを順番に再生 */
+  function playClip(idx) {
+    if (finished) return;
+    if (idx >= videos.length) {
+      revealHero();
+      return;
+    }
+
+    // 前のクリップをフェードアウト
+    if (idx > 0) videos[idx - 1].classList.remove('iv-active');
+
+    var v = videos[idx];
+    v.currentTime = 0;
+    v.play().catch(function(){});
+
+    // フェードイン（最初は即表示、以降は少し遅らせてクロスフェード）
+    setTimeout(function(){
+      if (finished) return;
+      v.classList.add('iv-active');
+    }, idx === 0 ? 0 : 60);
+
+    setTimeout(function(){ playClip(idx + 1); }, CLIP_MS);
+  }
+
+  /* SKIP ボタン */
+  window.introSkip = function(){ revealHero(); };
+
+  /* 開始 */
+  setTimeout(function(){ playClip(0); }, 60);
+})();
+</script>
 </body>
 </html>
