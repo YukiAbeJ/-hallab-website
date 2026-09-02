@@ -76,6 +76,220 @@
   <div style="text-align:center; padding:2rem 0;">
   <a href="../disclosure.html">情報公開（法人規程）</a>
 </div>
+<!-- ===== お問い合わせフォーム ここから ===== -->
+<style>
+  #contact .form-lead { font-size:0.95rem; color:var(--text-3); line-height:2; letter-spacing:0.04em; margin-bottom:2.75rem; }
+  #contact .form-grid { display:flex; flex-direction:column; gap:1.85rem; }
+  #contact .field { display:flex; flex-direction:column; gap:0.6rem; }
+  #contact .field-row { display:grid; grid-template-columns:1fr 1fr; gap:1.85rem; }
+  @media (max-width:640px) { #contact .field-row { grid-template-columns:1fr; } }
+  #contact .field label { font-size:0.78rem; font-weight:600; letter-spacing:0.12em; color:var(--text-2); display:flex; align-items:center; gap:0.6rem; }
+  #contact .req, #contact .opt { font-size:0.62rem; font-weight:700; letter-spacing:0.1em; padding:0.18em 0.6em; border-radius:2px; line-height:1.6; }
+  #contact .req { background:var(--gold); color:var(--text-inv); }
+  #contact .opt { background:transparent; color:var(--text-3); border:1px solid var(--line-sub); }
+  #contact .field input, #contact .field select, #contact .field textarea {
+    width:100%; font-family:var(--f-sans); font-size:0.95rem; color:var(--text);
+    background:var(--bg-card); border:1px solid var(--line-sub); border-radius:var(--radius);
+    padding:0.85rem 1rem; line-height:1.7; -webkit-appearance:none; appearance:none;
+    transition:border-color var(--t) var(--ease), box-shadow var(--t) var(--ease);
+  }
+  #contact .field select {
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' fill='none' stroke='%23555' stroke-width='1.5'/></svg>");
+    background-repeat:no-repeat; background-position:right 1rem center; padding-right:2.5rem;
+  }
+  #contact .field textarea { resize:vertical; min-height:11rem; }
+  #contact .field input:focus, #contact .field select:focus, #contact .field textarea:focus {
+    outline:none; border-color:var(--gold-40); box-shadow:0 0 0 3px var(--gold-10);
+  }
+  #contact .hint { font-size:0.72rem; color:var(--text-3); letter-spacing:0.04em; }
+  #contact .consent {
+    display:flex; align-items:flex-start; gap:0.8rem; font-size:0.82rem; color:var(--text-2);
+    line-height:1.9; letter-spacing:0.04em; padding:1.25rem; border:1px solid var(--line-sub);
+    border-radius:var(--radius); background:var(--bg-2); cursor:pointer;
+  }
+  #contact .consent input[type="checkbox"] { width:1.05rem; height:1.05rem; margin-top:0.4rem; flex:none; accent-color:var(--gold); }
+  #contact .form-actions { display:flex; flex-direction:column; align-items:center; gap:1rem; margin-top:0.5rem; }
+  #contact .form-actions .btn { padding:1rem 3.5rem; font-size:0.85rem; }
+  #contact .form-actions .btn[disabled] { opacity:0.45; cursor:not-allowed; transform:none; box-shadow:none; }
+  #contact .form-note { font-size:0.72rem; color:var(--text-3); letter-spacing:0.06em; text-align:center; }
+  #contact .form-status { display:none; padding:1rem 1.25rem; border-radius:var(--radius); font-size:0.85rem; line-height:1.9; letter-spacing:0.04em; margin-bottom:1.5rem; }
+  #contact .form-status.is-error { display:block; background:rgba(200,98,26,0.08); border:1px solid var(--gold-40); color:var(--gold-dk); }
+  #contact .hp { position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
+  #contact .form-done { display:none; text-align:center; padding:3rem 1.5rem; }
+  #contact .form-done.is-visible { display:block; }
+  #contact .form-done .done-mark {
+    width:3.5rem; height:3.5rem; margin:0 auto 1.75rem; border:1px solid var(--gold-40);
+    border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--gold); font-size:1.5rem;
+  }
+  #contact .form-done h3 { font-family:var(--f-en); font-size:1.5rem; font-weight:400; letter-spacing:0.06em; color:var(--text); margin-bottom:1rem; }
+  #contact .form-done p { font-size:0.9rem; color:var(--text-3); line-height:2; letter-spacing:0.04em; }
+</style>
+
+<section class="section section--mid" id="contact" aria-labelledby="contact-title">
+  <div class="container container--text" style="margin:0 auto;">
+
+    <div class="reveal">
+      <span class="sec-label">Contact</span>
+      <h2 class="sec-title-en" id="contact-title">お問い合わせ</h2>
+      <div class="sec-rule"></div>
+    </div>
+
+    <p class="form-lead reveal d1">
+      事業のご相談、共同研究・実証のお申し込み、講演・研修のご依頼、取材のお申し込みなど、
+      お気軽にお問い合わせください。<br>
+      内容を確認のうえ、担当者より <strong>3営業日以内</strong> にご返信いたします。
+    </p>
+
+    <div class="form-done" id="form-done">
+      <div class="done-mark" aria-hidden="true">&#10003;</div>
+      <h3>送信しました</h3>
+      <p>
+        お問い合わせありがとうございます。<br>
+        内容を確認のうえ、3営業日以内に担当者よりご返信いたします。<br>
+        しばらくお待ちください。
+      </p>
+    </div>
+
+    <form id="contact-form" class="reveal d1"
+          action="https://formspree.io/f/meaqggbb" method="POST" novalidate>
+
+      <div class="form-status" id="form-status" role="alert"></div>
+
+      <div class="form-grid">
+
+        <div class="field">
+          <label for="f-type">お問い合わせ種別 <span class="req">必須</span></label>
+          <select id="f-type" name="お問い合わせ種別" required>
+            <option value="">選択してください</option>
+            <option>事業・サービスのご相談</option>
+            <option>共同研究・実証のご相談</option>
+            <option>講演・研修のご依頼</option>
+            <option>取材・掲載のご依頼</option>
+            <option>採用・参画について</option>
+            <option>その他</option>
+          </select>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="f-name">お名前 <span class="req">必須</span></label>
+            <input type="text" id="f-name" name="お名前" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="f-kana">ふりがな <span class="opt">任意</span></label>
+            <input type="text" id="f-kana" name="ふりがな">
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="f-org">法人・団体名 <span class="opt">任意</span></label>
+            <input type="text" id="f-org" name="法人・団体名" autocomplete="organization">
+          </div>
+          <div class="field">
+            <label for="f-title">部署・役職 <span class="opt">任意</span></label>
+            <input type="text" id="f-title" name="部署・役職" autocomplete="organization-title">
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="f-email">メールアドレス <span class="req">必須</span></label>
+            <input type="email" id="f-email" name="email" autocomplete="email" required>
+          </div>
+          <div class="field">
+            <label for="f-tel">電話番号 <span class="opt">任意</span></label>
+            <input type="tel" id="f-tel" name="電話番号" autocomplete="tel">
+            <span class="hint">お急ぎの場合はご記入ください</span>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="f-body">お問い合わせ内容 <span class="req">必須</span></label>
+          <textarea id="f-body" name="お問い合わせ内容" required
+                    placeholder="ご相談の背景、ご希望の時期、想定されている規模などをご記入いただけますと、より具体的にご返信できます。"></textarea>
+        </div>
+
+        <label class="consent">
+          <input type="checkbox" name="個人情報の取り扱いへの同意" value="同意する" required>
+          <span>
+            ご入力いただいた個人情報は、お問い合わせへの回答および必要なご連絡のみに利用し、
+            ご本人の同意なく第三者へ提供することはありません。上記に同意します。
+          </span>
+        </label>
+
+        <div class="hp" aria-hidden="true">
+          <label for="f-hp">この欄は入力しないでください</label>
+          <input type="text" id="f-hp" name="_gotcha" tabindex="-1" autocomplete="off">
+        </div>
+
+        <input type="hidden" name="_subject" value="【HAL Lab.】ウェブサイトからのお問い合わせ">
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-gold" id="form-submit">送信する</button>
+          <p class="form-note">送信内容をご確認のうえ、送信ボタンを押してください。</p>
+        </div>
+
+      </div>
+    </form>
+
+  </div>
+</section>
+
+<script>
+(function () {
+  var form = document.getElementById('contact-form');
+  var status = document.getElementById('form-status');
+  var done = document.getElementById('form-done');
+  var button = document.getElementById('form-submit');
+  if (!form) return;
+
+  function fail(msg) {
+    status.className = 'form-status is-error';
+    status.textContent = msg;
+    status.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    status.className = 'form-status';
+    status.textContent = '';
+
+    if (!form.checkValidity()) {
+      var first = form.querySelector(':invalid');
+      if (first) first.focus();
+      fail('未入力の必須項目があります。ご確認ください。');
+      return;
+    }
+
+    button.disabled = true;
+    button.textContent = '送信中…';
+
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { Accept: 'application/json' }
+    }).then(function (res) {
+      if (res.ok) {
+        form.style.display = 'none';
+        done.classList.add('is-visible');
+        done.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+      return res.json().then(function (data) {
+        var detail = (data && data.errors) ? data.errors.map(function (x) { return x.message; }).join(' / ') : '';
+        throw new Error(detail);
+      });
+    }).catch(function (err) {
+      button.disabled = false;
+      button.textContent = '送信する';
+      fail('送信に失敗しました。時間をおいて再度お試しください。' + (err && err.message ? '（' + err.message + '）' : ''));
+    });
+  });
+})();
+</script>
+<!-- ===== お問い合わせフォーム ここまで ===== -->
+
 </main>
 <footer class="footer" role="contentinfo">
   <div class="footer-inner">
