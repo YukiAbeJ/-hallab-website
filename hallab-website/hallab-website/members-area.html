@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>メンバーエリア — HAL Lab.</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .members-area-wrap {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: calc(var(--nav-h) + 4rem) var(--px) 5rem;
+      min-height: 70vh;
+    }
+    .members-area-header {
+      margin-bottom: 3rem;
+      border-bottom: 1px solid var(--line-sub);
+      padding-bottom: 2rem;
+    }
+    .members-area-welcome {
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      color: var(--gold);
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+    }
+    .members-area-title {
+      font-family: var(--f-serif);
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      color: var(--text);
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+    .members-area-name {
+      font-size: 0.9rem;
+      color: var(--text-3);
+    }
+    .btn-logout {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.5rem 1.2rem;
+      border: 1px solid var(--line-sub);
+      border-radius: var(--radius-md);
+      font-size: 0.82rem;
+      color: var(--text-3);
+      cursor: pointer;
+      background: var(--bg-base);
+      transition: border-color 0.2s, color 0.2s;
+      margin-top: 1rem;
+    }
+    .btn-logout:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+    .coming-soon-block {
+      background: var(--bg-card);
+      border: 1px dashed var(--line-sub);
+      border-radius: var(--radius-xl);
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+    .coming-soon-icon {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+      opacity: 0.4;
+    }
+    .coming-soon-title {
+      font-family: var(--f-serif);
+      font-size: 1.3rem;
+      color: var(--text-2);
+      margin-bottom: 0.75rem;
+    }
+    .coming-soon-text {
+      font-size: 0.88rem;
+      color: var(--text-3);
+      line-height: 1.9;
+    }
+  </style>
+</head>
+<body>
+<!-- 認証チェック（コンテンツ表示前に即実行） -->
+<script src="js/auth.js"></script>
+<script>
+  (function() {
+    try {
+      var raw = sessionStorage.getItem('hallab_session_v1');
+      if (!raw) { window.location.replace('login.html'); return; }
+      var s = JSON.parse(raw);
+      if (!s || s.expiry <= Date.now()) { window.location.replace('login.html'); }
+    } catch(e) { window.location.replace('login.html'); }
+  })();
+</script>
+
+<a class="skip-link" href="#main">本文へスキップ</a>
+<nav class="nav" id="nav" role="navigation">
+  <a href="index.html" class="logo">
+    <img src="img/logo-hallab.jpg" alt="HAL Lab." class="logo-img">
+  </a>
+  <div class="nav-links">
+    <a href="index.html#greeting">ご挨拶</a>
+    <a href="about.html">私たちについて</a>
+    <a href="services.html">私たちの取組</a>
+    <a href="achievements.html">実績</a>
+    <a href="news.html">お知らせ</a>
+    <a href="company.html">法人情報</a>
+    <a href="#" class="nav-login" onclick="handleLogout(); return false;">Logout</a>
+  </div>
+  <button class="hamburger" aria-label="メニューを開く" aria-expanded="false" aria-controls="nav-overlay">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav-overlay" id="nav-overlay" role="dialog" aria-hidden="true">
+  <a href="index.html#greeting">ご挨拶</a>
+  <a href="about.html">私たちについて</a>
+  <a href="services.html">私たちの取組</a>
+  <a href="achievements.html">実績</a>
+  <a href="news.html">お知らせ</a>
+  <a href="company.html">法人情報</a>
+  <div class="nav-overlay-line" aria-hidden="true"></div>
+  <a href="#" class="nav-login" onclick="handleLogout(); return false;">Logout</a>
+</div>
+
+<main id="main">
+  <div class="members-area-wrap">
+    <div class="members-area-header reveal">
+      <div class="members-area-welcome">Members Area</div>
+      <h1 class="members-area-title">メンバー専用ページ</h1>
+      <p class="members-area-name" id="welcome-name"></p>
+      <button class="btn-logout" onclick="handleLogout()">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 2H3a1 1 0 00-1 1v10a1 1 0 001 1h3M10 11l3-3-3-3M13 8H6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        ログアウト
+      </button>
+    </div>
+
+    <div class="coming-soon-block reveal">
+      <div class="coming-soon-icon">🔒</div>
+      <h2 class="coming-soon-title">コンテンツ準備中</h2>
+      <p class="coming-soon-text">
+        メンバー専用コンテンツは現在準備中です。<br>
+        今後、議事録・資料・情報共有などのコンテンツを掲載予定です。
+      </p>
+    </div>
+  </div>
+</main>
+
+<footer class="footer" role="contentinfo">
+  <div class="footer-inner">
+    <div>
+      <a href="index.html" class="logo logo-footer">
+        <img src="img/logo-hallab.jpg" alt="HAL Lab." class="logo-img">
+      </a>
+      <p class="footer-tagline">今日も「生きる」を支えていきます</p>
+    </div>
+    <div>
+      <div class="footer-nav-title">NAVIGATION</div>
+      <nav class="footer-links">
+        <a href="index.html#greeting">ご挨拶</a>
+        <a href="about.html">私たちについて</a>
+        <a href="services.html">私たちの取組</a>
+        <a href="achievements.html">実績</a>
+        <a href="news.html">お知らせ</a>
+        <a href="company.html">法人情報</a>
+      </nav>
+    </div>
+    <div>
+      <div class="footer-nav-title">MEMBERS</div>
+      <nav class="footer-links">
+        <a href="members/abe-yuki.html">阿部 祐樹</a>
+        <a href="members/itagaki-atsunori.html">板垣 篤典</a>
+        <a href="members/kondo-ikue.html">近藤 郁江</a>
+        <a href="members/kimura-yosuke.html">木村 鷹介</a>
+        <a href="members/imagawa-norie.html">今川 記恵</a>
+        <a href="members/satoh-toshimi.html">佐藤 聡見</a>
+        <a href="members/kakehi-tomohiro.html">筧 智裕</a>
+      </nav>
+    </div>
+    <div class="footer-address">
+      <strong>ADDRESS</strong>
+      〒107-0061<br>東京都港区北青山<br>一丁目3番1号<br>アールキューブ青山3階<br><br>設立：2025年4月1日
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">&copy; 2025 一般社団法人 HAL Lab. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+  /* ウェルカムメッセージ */
+  const session = Auth.getSession();
+  if (session) {
+    document.getElementById('welcome-name').textContent =
+      'ようこそ、' + session.name + ' さん（セッション有効期限：' +
+      new Date(session.expiry).toLocaleString('ja-JP') + '）';
+  }
+
+  /* ログアウト */
+  function handleLogout() {
+    Auth.logout();
+    window.location.href = 'login.html';
+  }
+</script>
+</body>
+</html>

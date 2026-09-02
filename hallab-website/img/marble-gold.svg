@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <!-- Blur filters for vein softness layers -->
+    <filter id="b-wide"><feGaussianBlur stdDeviation="7"/></filter>
+    <filter id="b-mid"><feGaussianBlur stdDeviation="2.5"/></filter>
+    <filter id="b-fine"><feGaussianBlur stdDeviation="0.9"/></filter>
+    <filter id="b-glow"><feGaussianBlur stdDeviation="4"/></filter>
+
+    <!-- Subtle micro-texture via fractal noise -->
+    <filter id="tex" x="0%" y="0%" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.65 0.45" numOctaves="4" seed="7" result="n"/>
+      <feColorMatrix in="n" type="matrix"
+        values="0.12 0.08 0.04 0 0.84
+                0.09 0.06 0.03 0 0.72
+                0.02 0.01 0.01 0 0.18
+                0    0    0    1 0"/>
+    </filter>
+
+    <!-- Warm cream-gold gradient base -->
+    <linearGradient id="base-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   stop-color="#fdf5e2"/>
+      <stop offset="35%"  stop-color="#f8ecd0"/>
+      <stop offset="70%"  stop-color="#f3e4c2"/>
+      <stop offset="100%" stop-color="#eedbb8"/>
+    </linearGradient>
+
+    <!-- Radial warmth pool -->
+    <radialGradient id="warm-pool" cx="35%" cy="40%" r="60%">
+      <stop offset="0%"   stop-color="#ffe8a0" stop-opacity="0.30"/>
+      <stop offset="100%" stop-color="#d4a030" stop-opacity="0.00"/>
+    </radialGradient>
+  </defs>
+
+  <!-- ① Base: warm cream gold -->
+  <rect width="100%" height="100%" fill="url(#base-grad)"/>
+
+  <!-- ② Micro-texture subtle overlay -->
+  <rect width="100%" height="100%" filter="url(#tex)" opacity="0.18"/>
+
+  <!-- ③ Warm radial glow -->
+  <rect width="100%" height="100%" fill="url(#warm-pool)"/>
+
+  <!-- ================================================
+       VEIN SYSTEM — each major vein has 3 layers:
+       1. Wide soft halo (deep gold, blurred)
+       2. Core vein      (darker gold, mid blur)
+       3. Fine line      (richest, sharp)
+       ================================================ -->
+
+  <!-- === Vein A: main diagonal — upper left to right -->
+  <path d="M-80,210 C120,140 280,280 480,240 S780,110 1000,260 S1280,420 1520,340"
+        stroke="#c49020" stroke-width="32" fill="none" opacity="0.28" filter="url(#b-wide)"/>
+  <path d="M-80,210 C120,140 280,280 480,240 S780,110 1000,260 S1280,420 1520,340"
+        stroke="#a07015" stroke-width="10" fill="none" opacity="0.52" filter="url(#b-mid)"/>
+  <path d="M-80,210 C120,140 280,280 480,240 S780,110 1000,260 S1280,420 1520,340"
+        stroke="#7a520c" stroke-width="2.5" fill="none" opacity="0.78" filter="url(#b-fine)"/>
+  <!-- Highlight shimmer along Vein A -->
+  <path d="M-80,207 C120,137 280,277 480,237 S780,107 1000,257 S1280,417 1520,337"
+        stroke="#ffe090" stroke-width="4" fill="none" opacity="0.32" filter="url(#b-glow)"/>
+
+  <!-- === Vein B: secondary — upper right to lower mid -->
+  <path d="M820,-60 C860,120 780,280 820,440 S900,660 980,920"
+        stroke="#c08a18" stroke-width="26" fill="none" opacity="0.22" filter="url(#b-wide)"/>
+  <path d="M820,-60 C860,120 780,280 820,440 S900,660 980,920"
+        stroke="#8a6210" stroke-width="8" fill="none" opacity="0.48" filter="url(#b-mid)"/>
+  <path d="M820,-60 C860,120 780,280 820,440 S900,660 980,920"
+        stroke="#614508" stroke-width="2" fill="none" opacity="0.70" filter="url(#b-fine)"/>
+  <path d="M823,-60 C863,120 783,280 823,440 S903,660 983,920"
+        stroke="#ffd878" stroke-width="3" fill="none" opacity="0.28" filter="url(#b-glow)"/>
+
+  <!-- === Vein C: lower sweep — left to right -->
+  <path d="M-80,620 C200,560 380,700 620,640 S880,560 1100,680 S1380,780 1520,720"
+        stroke="#b87e14" stroke-width="24" fill="none" opacity="0.20" filter="url(#b-wide)"/>
+  <path d="M-80,620 C200,560 380,700 620,640 S880,560 1100,680 S1380,780 1520,720"
+        stroke="#8c5e0e" stroke-width="7" fill="none" opacity="0.44" filter="url(#b-mid)"/>
+  <path d="M-80,620 C200,560 380,700 620,640 S880,560 1100,680 S1380,780 1520,720"
+        stroke="#664408" stroke-width="1.8" fill="none" opacity="0.66" filter="url(#b-fine)"/>
+
+  <!-- === Vein D: thin accent — top to bottom left -->
+  <path d="M290,-80 C320,80 260,200 300,360 S360,520 310,720 S270,840 300,980"
+        stroke="#c49825" stroke-width="16" fill="none" opacity="0.18" filter="url(#b-wide)"/>
+  <path d="M290,-80 C320,80 260,200 300,360 S360,520 310,720 S270,840 300,980"
+        stroke="#966e18" stroke-width="5" fill="none" opacity="0.40" filter="url(#b-mid)"/>
+  <path d="M290,-80 C320,80 260,200 300,360 S360,520 310,720 S270,840 300,980"
+        stroke="#6e4e0c" stroke-width="1.5" fill="none" opacity="0.62" filter="url(#b-fine)"/>
+  <path d="M293,-80 C323,80 263,200 303,360 S363,520 313,720 S273,840 303,980"
+        stroke="#ffd060" stroke-width="2.5" fill="none" opacity="0.22" filter="url(#b-glow)"/>
+
+  <!-- === Vein E: fine branching — upper right cluster -->
+  <path d="M1100,-40 C1140,80 1060,180 1120,300 S1220,420 1180,540"
+        stroke="#c09020" stroke-width="12" fill="none" opacity="0.16" filter="url(#b-wide)"/>
+  <path d="M1100,-40 C1140,80 1060,180 1120,300 S1220,420 1180,540"
+        stroke="#8a6610" stroke-width="3.5" fill="none" opacity="0.38" filter="url(#b-mid)"/>
+  <path d="M1100,-40 C1140,80 1060,180 1120,300 S1220,420 1180,540"
+        stroke="#624808" stroke-width="1.2" fill="none" opacity="0.58" filter="url(#b-fine)"/>
+
+  <!-- === Vein F: wide soft sweep mid-left -->
+  <path d="M-80,420 C160,380 320,500 540,460 S780,380 960,480"
+        stroke="#d4a030" stroke-width="20" fill="none" opacity="0.14" filter="url(#b-wide)"/>
+  <path d="M-80,420 C160,380 320,500 540,460 S780,380 960,480"
+        stroke="#a07820" stroke-width="5" fill="none" opacity="0.32" filter="url(#b-mid)"/>
+
+  <!-- ④ Final tinted warmth overlay to unify -->
+  <rect width="100%" height="100%" fill="#c8900a" opacity="0.04"/>
+</svg>
