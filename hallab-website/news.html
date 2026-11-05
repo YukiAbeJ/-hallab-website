@@ -9,6 +9,51 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ===== お知らせページ専用スタイル ===== */
+    .news-entry { padding: 2.2rem 0 2.8rem; border-bottom: 1px solid var(--line-sub); scroll-margin-top: calc(var(--nav-h, 72px) + 1.5rem); }
+    .news-entry:last-of-type { border-bottom: none; }
+    .news-entry .news-row { border-bottom: none; padding: 0 0 1rem; }
+    .news-body { font-size: 0.95rem; line-height: 2; color: var(--text-2); letter-spacing: 0.03em; }
+    .news-body p { margin: 0 0 1rem; }
+    .news-body ul { margin: 0 0 1rem 1.5rem; padding: 0; list-style: disc; }
+    .news-body li { margin-bottom: 0.3rem; }
+    .news-body h3 { font-size: 1rem; font-weight: 700; margin: 1.6rem 0 0.6rem; color: var(--text); letter-spacing: 0.06em; }
+    .news-voice { margin: 1.2rem 0; padding: 1rem 1.3rem; background: var(--bg-card); border-left: 3px solid var(--gold); border-radius: var(--radius-md); }
+    .news-voice p { margin: 0.2rem 0; }
+
+    /* 写真：大（集合写真） */
+    .news-photo-lg { margin: 1.6rem 0; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--line-sub); box-shadow: var(--shadow); }
+    .news-photo-lg img { width: 100%; height: auto; display: block; }
+    /* 写真：小（測定の様子） */
+    .news-photo-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.7rem; margin: 1.2rem 0 0.4rem; }
+    .news-photo-grid figure { margin: 0; border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--line-sub); box-shadow: var(--shadow-sm); background: var(--bg-card); }
+    .news-photo-grid img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; }
+    .news-photo-grid figcaption { font-size: 0.72rem; color: var(--text-3); text-align: center; padding: 0.4rem 0.3rem; letter-spacing: 0.03em; }
+    .news-caption { font-size: 0.78rem; color: var(--text-3); text-align: center; margin-top: 0.5rem; }
+
+    /* プレスリリース埋め込みカード */
+    .press-card { display: grid; grid-template-columns: 300px 1fr; gap: 0; margin: 1.4rem 0; border: 1px solid var(--line-sub); border-radius: var(--radius-lg); overflow: hidden; background: var(--bg-card); box-shadow: var(--shadow-sm); text-decoration: none; color: inherit; transition: box-shadow var(--t), transform var(--t); }
+    .press-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+    .press-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .press-card-body { padding: 1.2rem 1.4rem; display: flex; flex-direction: column; justify-content: center; }
+    .press-card-src { font-family: var(--f-en-sans); font-size: 0.72rem; letter-spacing: 0.14em; color: var(--gold); font-weight: 700; margin-bottom: 0.4rem; }
+    .press-card-title { font-size: 1rem; font-weight: 700; line-height: 1.7; color: var(--text); margin-bottom: 0.5rem; }
+    .press-card-meta { font-size: 0.78rem; color: var(--text-3); line-height: 1.7; }
+    .press-card-link { font-size: 0.78rem; color: var(--gold); margin-top: 0.6rem; letter-spacing: 0.08em; }
+    .press-card-link::after { content: ' →'; }
+
+    .news-roles { width: 100%; border-collapse: collapse; margin: 0.6rem 0 1.2rem; font-size: 0.86rem; }
+    .news-roles th, .news-roles td { border: 1px solid var(--line-sub); padding: 0.55rem 0.9rem; text-align: left; vertical-align: top; }
+    .news-roles th { white-space: nowrap; font-weight: 700; background: var(--gold-5); }
+
+    @media (max-width: 760px) {
+      .news-photo-grid { grid-template-columns: repeat(2, 1fr); }
+      .press-card { grid-template-columns: 1fr; }
+      .press-card img { aspect-ratio: 16 / 9; height: auto; }
+      .news-roles th { white-space: normal; }
+    }
+  </style>
 </head>
 <body class="page-news">
 <a class="skip-link" href="#main">本文へスキップ</a>
@@ -45,16 +90,103 @@
   </div></div>
   <section class="section section--dark">
     <div class="container container--text" style="margin:0 auto;">
-      <div class="news-list reveal">
-        <div class="news-row">
-          <span class="news-date">2025.04.01</span>
-          <div><span class="news-badge">法人設立</span><p class="news-title">一般社団法人HAL Lab.（Healthy Ageing &amp; Longevity Laboratory / ヘルシーエイジング・長寿研究所）を設立しました。<br><span style="font-size:0.8rem;color:var(--text-3);display:block;margin-top:0.4rem;">所在地：東京都港区北青山一丁目3番1号 アールキューブ青山3階</span></p></div>
-        </div>
-      </div>
-      <div class="mt-3 reveal" style="display:flex;justify-content:center;">
-        <div style="width:50%;border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--line-sub);box-shadow:var(--shadow);">
-          <img src="img/news-photo.png" alt="HAL Lab. 活動写真" style="width:100%;height:auto;display:block;object-fit:cover;">
-        </div>
+      <div class="news-list">
+
+        <!-- ============ 2026.11.05 村上市 健康・体力測定会 ============ -->
+        <article class="news-entry reveal" id="news-20261105">
+          <div class="news-row">
+            <span class="news-date">2026.11.05</span>
+            <div><span class="news-badge">活動報告</span><p class="news-title">村上市にて健康・体力測定会を開催しました</p></div>
+          </div>
+          <div class="news-body">
+            <div class="news-photo-lg">
+              <img src="img/news/murakami2026_group01.jpg" alt="村上市 健康・体力測定会 スタッフ集合写真" loading="lazy">
+            </div>
+            <p>新潟県村上市にて、地域在住の高齢者の皆さまを対象とした健康・体力測定会を開催しました。地元のNPO法人、原信村上インター店、地元の医療機関（山北徳新会病院の作業療法士、歯科衛生士）にもご連携・ご協力いただき、多職種のスタッフで会場を運営しました。</p>
+
+            <h3>実施した測定項目</h3>
+            <p>介護予防の観点から重要な項目を中心に、次の測定・検査を実施しました。</p>
+            <ul>
+              <li>フレイル（心身の虚弱）の評価</li>
+              <li>認知機能</li>
+              <li>口腔・嚥下機能</li>
+              <li>血管年齢</li>
+              <li>心肺機能</li>
+              <li>自律神経機能</li>
+              <li>身体機能（筋力・歩行・バランス等）</li>
+              <li>エコー検査</li>
+            </ul>
+            <p>期間中、200名以上の地域在住高齢者の皆さまにご参加いただきました。測定結果はその場でお一人ずつご説明し、日々の生活で取り組めるポイントをお伝えしています。</p>
+
+            <div class="news-photo-grid">
+              <figure><img src="img/news/murakami2026_measure01.jpg" alt="糖化度（AGEs）の測定" loading="lazy"><figcaption>糖化度（AGEs）の測定</figcaption></figure>
+              <figure><img src="img/news/murakami2026_measure02.jpg" alt="測定結果の説明" loading="lazy"><figcaption>測定結果のご説明</figcaption></figure>
+              <figure><img src="img/news/murakami2026_measure03.jpg" alt="口腔・嚥下機能の検査" loading="lazy"><figcaption>口腔・嚥下機能の検査</figcaption></figure>
+              <figure><img src="img/news/murakami2026_measure04.jpg" alt="心肺機能の測定" loading="lazy"><figcaption>心肺機能の測定</figcaption></figure>
+            </div>
+
+            <h3>参加者の声</h3>
+            <div class="news-voice">
+              <p>「毎年、楽しみにしている！」</p>
+              <p>「認知機能（低下）は怖いけど、未然に防げるものがあるなら早めに見つけて対応したい！」</p>
+              <p>「今回は、前回の結果よりも良くしていきたい！」</p>
+            </div>
+            <p>といった前向きな声も多く聞かれました。ご参加いただいた皆さま、ご協力いただいた関係者の皆さまに心より御礼申し上げます。HAL Lab.は今後も、測定会を起点とした地域の介護予防・健康づくりに取り組んでまいります。</p>
+
+            <div class="news-photo-lg">
+              <img src="img/news/murakami2026_group02.jpg" alt="村上市 健康・体力測定会 運営スタッフ・協力者の集合写真" loading="lazy">
+            </div>
+            <p class="news-caption">運営スタッフ・ご協力いただいた皆さま</p>
+          </div>
+        </article>
+
+        <!-- ============ 2026.09.30 コンソーシアム結成・経産省事業採択 ============ -->
+        <article class="news-entry reveal" id="news-20260930">
+          <div class="news-row">
+            <span class="news-date">2026.09.30</span>
+            <div><span class="news-badge">プレスリリース</span><p class="news-title">「うごく・休む・出かける」ウェルネスコンソーシアムを結成し、経済産業省事業に採択されました</p></div>
+          </div>
+          <div class="news-body">
+            <p>一般社団法人HAL Lab.は、株式会社JDSC、株式会社SOXAIとともに「うごく・休む・出かける」ウェルネスコンソーシアムを結成しました。本コンソーシアムの提案は、経済産業省の高齢者のウェルビーイングに関するサービス実証事業に採択され、2026年9月より新潟県内の自治体で実証を開始しています。</p>
+
+            <a class="press-card" href="https://prtimes.jp/main/html/rd/p/000000172.000040467.html" target="_blank" rel="noopener noreferrer">
+              <img src="https://prcdn.freetls.fastly.net/release_image/40467/172/40467-172-ec1c7fc4f19db69d3e38fa138ef5e445-1280x720.png" alt="プレスリリース：JDSC・HAL Lab.・SOXAI、「うごく・休む・出かける」ウェルネスコンソーシアムを結成" loading="lazy">
+              <div class="press-card-body">
+                <div class="press-card-src">PR TIMES</div>
+                <div class="press-card-title">JDSC・HAL Lab.・SOXAI、「うごく・休む・出かける」ウェルネスコンソーシアムを結成</div>
+                <div class="press-card-meta">株式会社JDSC　2026年9月30日 配信</div>
+                <div class="press-card-link">プレスリリース全文を読む</div>
+              </div>
+            </a>
+
+            <h3>取り組みの概要</h3>
+            <p>リング型ウェアラブル端末やスマートフォンから得られるPHR（パーソナルヘルスレコード）データと、アンケートによる主観的な回答を組み合わせて高齢者の日常生活を捉え、「ウェルネス指標」の構築を目指します。本人がご自身の変化に気づくこと、ご家族の見守り、地域包括支援センター等による支援の優先順位づけへの活用を想定しています。</p>
+
+            <h3>各社の役割</h3>
+            <table class="news-roles">
+              <tbody>
+                <tr><th>株式会社JDSC</th><td>指標アルゴリズムの開発、家族・支援機関向けアプリおよびダッシュボード、データ分析、事業推進</td></tr>
+                <tr><th>一般社団法人HAL Lab.</th><td>健康・体力測定会の実施、有資格セラピストによるフレイル評価と臨床的解釈、自治体・医療機関との連携</td></tr>
+                <tr><th>株式会社SOXAI</th><td>スマートリング「SOXAI RING」による生体データの取得</td></tr>
+              </tbody>
+            </table>
+            <p>HAL Lab.は、本事業において測定会とフレイル評価の実施、地域の医療機関・自治体との連携を担います。詳細は上記プレスリリースをご覧ください。</p>
+          </div>
+        </article>
+
+        <!-- ============ 2025.04.01 法人設立 ============ -->
+        <article class="news-entry reveal" id="news-20250401">
+          <div class="news-row">
+            <span class="news-date">2025.04.01</span>
+            <div><span class="news-badge">法人設立</span><p class="news-title">一般社団法人HAL Lab.（Healthy Ageing &amp; Longevity Laboratory / ヘルシーエイジング・長寿研究所）を設立しました。<br><span style="font-size:0.8rem;color:var(--text-3);display:block;margin-top:0.4rem;">所在地：東京都港区北青山一丁目3番1号 アールキューブ青山3階</span></p></div>
+          </div>
+          <div class="news-body" style="display:flex;justify-content:center;">
+            <div style="width:50%;border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--line-sub);box-shadow:var(--shadow);">
+              <img src="img/news-photo.png" alt="HAL Lab. 活動写真" style="width:100%;height:auto;display:block;object-fit:cover;" loading="lazy">
+            </div>
+          </div>
+        </article>
+
       </div>
       <div class="mt-3 reveal" style="text-align:center;padding:3rem 2rem;background:var(--bg-card);border:1px solid var(--line-sub);border-radius:var(--radius-md);">
         <p style="font-size:0.88rem;color:var(--text-2);letter-spacing:0.06em;line-height:2;">今後の活動・お知らせは随時こちらに掲載いたします。</p>
